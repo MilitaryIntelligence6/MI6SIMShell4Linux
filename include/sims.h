@@ -30,7 +30,7 @@ typedef struct student
     struct student *next;
 } STUDENT, *pSTUDENT;
 
-void systemInit(pUSER_ACCOUNT *user_list, pSTUDENT *stu_list, char *str1, char *str2);
+void systemInit(pUSER_ACCOUNT *userList, pSTUDENT *stuList, char *str1, char *str2);
 
 void interfaceInit();
 

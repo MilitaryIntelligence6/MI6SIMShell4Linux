@@ -17,8 +17,8 @@ int main()
         perror("fopen");
         return -1;
     }
-    USER_ACCOUNT *user_list = NULL;
-    STUDENT *stu_list = NULL;
+    USER_ACCOUNT *userList = NULL;
+    STUDENT *stuList = NULL;
     int button;
     USER_ACCOUNT user;
     memset(&user, 0, sizeof(USER_ACCOUNT));
@@ -28,7 +28,7 @@ int main()
     memset(str, 0, sizeof(str));
     fgets(str, sizeof(str) - 1, fp);
     sscanf(str, "%s", str2);
-    systemInit(&user_list, &stu_list, str1, str2);
+    systemInit(&userList, &stuList, str1, str2);
     while (1)
     {
         system("clear");
@@ -53,14 +53,14 @@ int main()
         scanf("%s", &user.user_name);
         fflush(stdin);
         getPassword(user.user_password);
-        if (checkUserAccount(user_list, user))
+        if (checkUserAccount(userList, user))
         {
             if (user.users_limit == ADMIN)
             {
-                adminAccount(&user_list, &stu_list, str1, str2);
+                adminAccount(&userList, &stuList, str1, str2);
             } else if (user.users_limit == GUEST)
             {
-                guestAccount(stu_list);
+                guestAccount(stuList);
             }
             break;
         } else
