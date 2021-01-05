@@ -22,11 +22,11 @@ typedef struct student{
 	struct student *next;
 }STUDENT,*pSTUDENT;
 
-void system_init(pUSER_ACCOUNT *user_list,pSTUDENT *stu_list,char *str1,char *str2);
+void systemInit(pUSER_ACCOUNT *user_list, pSTUDENT *stu_list, char *str1, char *str2);
 
-void interface_init();
+void interfaceInit();
 
-void GetPassword(char *password);
+void getPassword(char *password);
 
 int check_user_account(pUSER_ACCOUNT ,USER_ACCOUNT);
 
