@@ -102,7 +102,7 @@ void systemInit(pUSER_ACCOUNT *user_list, pSTUDENT *stu_list, char *str1, char *
 
 void interfaceInit()
 {
-    printf("welcome to SIMS\n");
+    printf("welcome to SimShell\n");
     printf("\nPlease select your account level:\n\n");
     printf("[0] You are a teacher\n");
     printf("[1] You are a student\n");
@@ -136,7 +136,7 @@ void getPassword(char *password)
     }
 }
 
-int check_user_account(pUSER_ACCOUNT user_list, USER_ACCOUNT user)
+int checkUserAccount(pUSER_ACCOUNT user_list, USER_ACCOUNT user)
 {
     while (user_list->next != NULL)
     {
@@ -150,13 +150,13 @@ int check_user_account(pUSER_ACCOUNT user_list, USER_ACCOUNT user)
     return 0;
 }
 
-void admin_account(pUSER_ACCOUNT *user_list, pSTUDENT *stu_list, char *str1, char *str2)
+void adminAccount(pUSER_ACCOUNT *user_list, pSTUDENT *stu_list, char *str1, char *str2)
 {
     int button;
     while (1)
     {
         system("clear");
-        admin_interface_init();
+        adminInterfaceInit();
         printf("\n");
         printf("select a number:");
         scanf("%d", &button);
@@ -168,53 +168,53 @@ void admin_account(pUSER_ACCOUNT *user_list, pSTUDENT *stu_list, char *str1, cha
         switch (button)
         {
             case 1:
-                search_student_information(*stu_list, ADMIN);
+                searchStudentInformation(*stu_list, ADMIN);
                 break;
             case 2:
-                add_student_information(stu_list, str2);
+                addStudentInformation(stu_list, str2);
                 break;
             case 3:
-                update_student_information(stu_list, str2);
+                updateStudentInformation(stu_list, str2);
                 break;
             case 4:
-                delete_student_information(stu_list, str2);
+                deleteStudentInformation(stu_list, str2);
                 break;
             case 5:
-                search_user_account(*user_list);
+                searchUserAccount(*user_list);
                 break;
             case 6:
-                add_user_account(user_list, str1);
+                addUserAccount(user_list, str1);
                 break;
             case 7:
-                update_user_account(user_list, str1);
+                updateUserAccount(user_list, str1);
                 break;
             case 8:
-                delete_user_account(user_list, str1);
+                deleteUserAccount(user_list, str1);
                 break;
             case 9:
-                system_exit();
+                systemExit();
                 break;
         }
 
     }
 }
 
-void guest_account(pSTUDENT stu_list)
+void guestAccount(pSTUDENT stu_list)
 {
     int button;
     while (1)
     {
         system("clear");
-        guest_interface_init();
+        guestInterfaceInit();
         printf("select a number:");
         scanf("%d", &button);
         switch (button)
         {
             case 1:
-                search_student_information(stu_list, GUEST);
+                searchStudentInformation(stu_list, GUEST);
                 break;
             case 2:
-                system_exit();
+                systemExit();
                 break;
             default:
                 printf("\n");;
@@ -226,7 +226,7 @@ void guest_account(pSTUDENT stu_list)
     }
 }
 
-void admin_interface_init()
+void adminInterfaceInit()
 {
     printf("[1] %-8s student information\n", "search");
     printf("[2] %-8s student information\n", "add");
@@ -239,27 +239,27 @@ void admin_interface_init()
     printf("[9] exit\n\n");
 }
 
-void guest_interface_init()
+void guestInterfaceInit()
 {
     printf("[1] search student information\n");
     printf("[2] exit\n");
 }
 
-void search_student_information(pSTUDENT stu_list, int limit)
+void searchStudentInformation(pSTUDENT stu_list, int limit)
 {
     int button;
     while (1)
     {
-        search_init(limit);
+        searchInit(limit);
         printf("select a number:");
         scanf("%d", &button);
         switch (button)
         {
             case 1:
-                search_by_id(stu_list);
+                searchById(stu_list);
                 break;
             case 2:
-                search_by_name(stu_list);
+                searchByName(stu_list);
                 break;
             case 3:
                 return;
@@ -267,7 +267,7 @@ void search_student_information(pSTUDENT stu_list, int limit)
             case 0:
                 if (limit == ADMIN)
                 {
-                    search_all(stu_list);
+                    searchAll(stu_list);
                 }
                 break;
             default:
@@ -279,7 +279,7 @@ void search_student_information(pSTUDENT stu_list, int limit)
     }
 }
 
-void search_init(int limit)
+void searchInit(int limit)
 {
     system("clear");
     if (limit == ADMIN)
@@ -292,7 +292,7 @@ void search_init(int limit)
 
 }
 
-void search_by_id(pSTUDENT stu_list)
+void searchById(pSTUDENT stu_list)
 {
     pSTUDENT p = stu_list->next;
     int id, i;
@@ -326,7 +326,7 @@ void search_by_id(pSTUDENT stu_list)
     scanf("%s", tmp);
 }
 
-void add_student_information(pSTUDENT *stu_list, char *str2)
+void addStudentInformation(pSTUDENT *stu_list, char *str2)
 {
     pSTUDENT p = (pSTUDENT) calloc(1, sizeof(STUDENT));
     pSTUDENT pre = NULL, pcur = NULL;
@@ -376,7 +376,7 @@ void add_student_information(pSTUDENT *stu_list, char *str2)
         if (flag)
         {
             printf("Insert success!\n");
-            update_student_database(stu_list, str2);
+            updateStudentDatabase(stu_list, str2);
         } else
         {
             printf("Error!\nThis student's ID has existed in database.\n");
@@ -391,7 +391,7 @@ void add_student_information(pSTUDENT *stu_list, char *str2)
     }
 }
 
-void update_student_database(pSTUDENT *stu_list, char *str2)
+void updateStudentDatabase(pSTUDENT *stu_list, char *str2)
 {
     FILE *fp = fopen(str2, "w");
     pSTUDENT p = (*stu_list)->next;
@@ -415,7 +415,7 @@ void update_student_database(pSTUDENT *stu_list, char *str2)
     }
 }
 
-void update_student_information(pSTUDENT *stu_list, char *str2)
+void updateStudentInformation(pSTUDENT *stu_list, char *str2)
 {
     pSTUDENT p = (*stu_list)->next;
     int flag = 0, id, i;
@@ -444,14 +444,14 @@ void update_student_information(pSTUDENT *stu_list, char *str2)
     } else
     {
         printf("Update Success!\n");
-        update_student_database(stu_list, str2);
+        updateStudentDatabase(stu_list, str2);
     }
     printf("\nPress any key to continue\n");
     char tmp[2];
     scanf("%s", &tmp);
 }
 
-void delete_student_information(pSTUDENT *stu_list, char *str2)
+void deleteStudentInformation(pSTUDENT *stu_list, char *str2)
 {
     pSTUDENT pre = *stu_list;
     pSTUDENT pcur = (*stu_list)->next;
@@ -480,31 +480,31 @@ void delete_student_information(pSTUDENT *stu_list, char *str2)
     } else
     {
         printf("Delete Success!\n");
-        update_student_database(stu_list, str2);
+        updateStudentDatabase(stu_list, str2);
     }
     printf("\nPress any key to continue\n");
     char tmp[2];
     scanf("%s", &tmp);
 }
 
-void search_user_account(pUSER_ACCOUNT user_list)
+void searchUserAccount(pUSER_ACCOUNT user_list)
 {
     int button;
     while (1)
     {
-        search_account_init();
+        searchAccountInit();
         printf("select a number:");
         scanf("%d", &button);
         switch (button)
         {
             case 0:
-                search_user_all(user_list);
+                searchAllUser(user_list);
                 break;
             case 1:
-                search_by_userlevel(user_list);
+                searchByUserLevel(user_list);
                 break;
             case 2:
-                search_by_username(user_list);
+                searchByUsername(user_list);
                 break;
             case 3:
                 return;
@@ -518,7 +518,7 @@ void search_user_account(pUSER_ACCOUNT user_list)
     }
 }
 
-void search_account_init()
+void searchAccountInit()
 {
     system("clear");
     printf("[0] search all\n");
@@ -527,7 +527,7 @@ void search_account_init()
     printf("[3] return\n\n");
 }
 
-void search_user_all(pUSER_ACCOUNT user_list)
+void searchAllUser(pUSER_ACCOUNT user_list)
 {
     pUSER_ACCOUNT p = user_list->next;
     system("clear");
@@ -548,7 +548,7 @@ void search_user_all(pUSER_ACCOUNT user_list)
     scanf("%s", &tmp);
 }
 
-void search_by_userlevel(pUSER_ACCOUNT user_list)
+void searchByUserLevel(pUSER_ACCOUNT user_list)
 {
     pUSER_ACCOUNT p = user_list;
     int i;
@@ -583,7 +583,7 @@ void search_by_userlevel(pUSER_ACCOUNT user_list)
     scanf("%s", &tmp);
 }
 
-void search_by_username(pUSER_ACCOUNT user_list)
+void searchByUsername(pUSER_ACCOUNT user_list)
 {
     pUSER_ACCOUNT p = user_list->next;
     char name[USER_NAME_LEN + 1] = "";
@@ -620,7 +620,7 @@ void search_by_username(pUSER_ACCOUNT user_list)
     scanf("%s", &tmp);
 }
 
-void add_user_account(pUSER_ACCOUNT *user_list, char *str1)
+void addUserAccount(pUSER_ACCOUNT *user_list, char *str1)
 {
     pUSER_ACCOUNT p = (pUSER_ACCOUNT) calloc(1, sizeof(USER_ACCOUNT));
     pUSER_ACCOUNT pcur = (*user_list)->next;
@@ -652,10 +652,10 @@ void add_user_account(pUSER_ACCOUNT *user_list, char *str1)
         if (tmp != 1)
             break;
     }
-    update_userdatabase(user_list, str1);
+    updateUserDatabase(user_list, str1);
 }
 
-void update_user_account(pUSER_ACCOUNT *user_list, char *str1)
+void updateUserAccount(pUSER_ACCOUNT *user_list, char *str1)
 {
     pUSER_ACCOUNT p = (*user_list)->next;
     char name[USER_NAME_LEN + 1] = "";
@@ -685,14 +685,14 @@ void update_user_account(pUSER_ACCOUNT *user_list, char *str1)
     } else
     {
         printf("Update success!\n");
-        update_userdatabase(user_list, str1);
+        updateUserDatabase(user_list, str1);
     }
     printf("\nPress any key to continue\n");
     char tmp[2];
     scanf("%s", &tmp);
 }
 
-void update_userdatabase(pUSER_ACCOUNT *user_list, char *str1)
+void updateUserDatabase(pUSER_ACCOUNT *user_list, char *str1)
 {
     FILE *fp = fopen(str1, "w");
     pUSER_ACCOUNT p = (*user_list)->next;
@@ -710,7 +710,7 @@ void update_userdatabase(pUSER_ACCOUNT *user_list, char *str1)
     fclose(fp);
 }
 
-void delete_user_account(pUSER_ACCOUNT *user_list, char *str1)
+void deleteUserAccount(pUSER_ACCOUNT *user_list, char *str1)
 {
     pUSER_ACCOUNT pre = (*user_list);
     pUSER_ACCOUNT pcur = (*user_list)->next;
@@ -740,14 +740,14 @@ void delete_user_account(pUSER_ACCOUNT *user_list, char *str1)
     } else
     {
         printf("Delete success!\n");
-        update_userdatabase(user_list, str1);
+        updateUserDatabase(user_list, str1);
     }
     printf("\nPress any key to continue\n");
     char tmp[2];
     scanf("%s", &tmp);
 }
 
-void search_by_name(pSTUDENT stu_list)
+void searchByName(pSTUDENT stu_list)
 {
     pSTUDENT p = stu_list->next;
     int i;
@@ -782,7 +782,7 @@ void search_by_name(pSTUDENT stu_list)
     scanf("%s", &tmp);
 }
 
-void search_all(pSTUDENT stu_list)
+void searchAll(pSTUDENT stu_list)
 {
     pSTUDENT p = stu_list->next;
     int i;
@@ -803,7 +803,7 @@ void search_all(pSTUDENT stu_list)
     scanf("%s", &tmp);
 }
 
-void system_exit()
+void systemExit()
 {
     system("clear");
     printf("\n");;

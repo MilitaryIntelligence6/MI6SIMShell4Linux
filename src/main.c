@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include "../include/sims.h"
 
+
 int main()
 {
     char str[1024] = "";
@@ -36,7 +37,7 @@ int main()
         button = getchar() - '0';
         if (2 == button)
         {
-            system_exit();
+            systemExit();
             return 0;
         } else if (ADMIN == button || GUEST == button)
             user.users_limit = button;
@@ -52,14 +53,14 @@ int main()
         scanf("%s", &user.user_name);
         fflush(stdin);
         getPassword(user.user_password);
-        if (check_user_account(user_list, user))
+        if (checkUserAccount(user_list, user))
         {
             if (user.users_limit == ADMIN)
             {
-                admin_account(&user_list, &stu_list, str1, str2);
+                adminAccount(&user_list, &stu_list, str1, str2);
             } else if (user.users_limit == GUEST)
             {
-                guest_account(stu_list);
+                guestAccount(stu_list);
             }
             break;
         } else
